@@ -1,18 +1,5 @@
-/*let myVar1 = 26.55555;
-let myVar1r = myVar1.toFixed(2);
-console.log(myVar1r);*/
-
-let intro = document.getElementById("intro");
 let addPersonDiv = document.getElementById("addPersonDiv");
 let displayResults = document.getElementById("displayResults");
-
-let introContent = '';
-introContent += '<h2>Share the costs</h2>';
-introContent += '<p>Hey! This app lets you calculate how much you spent as a group and it calculates who owes what from a trip away!</p>';
-introContent += '<h3>So, gather everyone round the table and ask them how much they contributed in total for food, petrol or any other expenditures!</h3>';
-introContent += '<p>Remember, this app is for calculating at the end of the trip. If you refresh the page, you will have to start again!</p>';
-
-intro.innerHTML = introContent;
 
 let addPersonContent = '';
 addPersonContent += '<div class="add-person-content-div">';
@@ -43,7 +30,8 @@ addPersonBtn.onclick = function(){
 	let ammount = document.getElementById("ammount").value;
 	let errors = trip.errorCheck(person, ammount);
 	if(errors == ''){
-		let newPerson = {name:person, ammountPaid:ammount};
+        let ammountConverted = parseInt(ammount);
+		let newPerson = {name:person, ammount:ammountConverted};
 		trip.people.push(newPerson);
 		trip.displayResults();
 	}else{
@@ -61,13 +49,13 @@ function Trip(){
 		
 		let total = this.displayTotal();
         let numberPeople = this.people.length;
-		let average = total / numberPeople;
+		let average = parseInt(total / numberPeople);
 
 		for(i=0; i<this.people.length; i++){
-			let owed = this.people[i].ammountPaid - average;
-			content += '<p>' + this.people[i].name + ' - PAID IN: <strong>' + this.people[i].ammountPaid;
+			let owed = this.people[i].ammount - average;
+			content += '<p>' + this.people[i].name + ' - PAID IN: <strong>' + this.people[i].ammount;
             content += '</strong>. ';
-            content += owed > 0 ? 'You are OWED ' + owed : 'You OWE ' + owed;
+            content += owed > 0 ? '<span>You are OWED ' + owed + '</span>' : '<span style="color:red;">You OWE ' + owed + '</span>';
 			content += '</p>';
 		}
 
@@ -77,20 +65,25 @@ function Trip(){
 		displayResults.innerHTML += '<h4>AVERAGE SPEND PP: ' + average + '</h4>';
 		displayResults.innerHTML += content;
 	}
-	this.errorCheck = function(person, ammount){
-		if(person){
-			return '';
-		}else{
-			return 'Errors added here!';
-		}
-	}
 	this.displayTotal = function(){
         let num = 0;
         for(i=0; i<this.people.length; i++){
-			num += parseInt(this.people[i].ammountPaid);
+			num += parseInt(this.people[i].ammount);
 		}
 		return num;
 	}
+	this.errorCheck = function(person, ammount){
+		let errors = '';
+		if(person == '') { errors += 'Name field is blank.  '; }
+		if(ammount == '') { errors += 'Ammount field is blank.  '; }
+		if(!this.checkStr(person)) { errors += 'Name field can only contain letters and spaces.  '; }
+		if(isNaN(ammount)) { errors += 'Ammount field can only contain a number.  '; }
+		return errors;
+	}
+	this.checkStr = function(str){
+        return /^[a-zA-Z\s]*$/.test(str);
+	}
+	
 }
 
 
