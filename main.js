@@ -1,3 +1,7 @@
+/*let myVar1 = 26.55555;
+let myVar1r = myVar1.toFixed(2);
+console.log(myVar1r);*/
+
 let intro = document.getElementById("intro");
 let addPersonDiv = document.getElementById("addPersonDiv");
 let displayResults = document.getElementById("displayResults");
@@ -32,7 +36,6 @@ addPersonContent += '</div>';
 addPersonDiv.innerHTML = addPersonContent;
 
 let addPersonBtn = document.getElementById("addPersonBtn");
-console.log(addPersonBtn);
 
 trip = new Trip();
 addPersonBtn.onclick = function(){
@@ -40,7 +43,9 @@ addPersonBtn.onclick = function(){
 	let ammount = document.getElementById("ammount").value;
 	let errors = trip.errorCheck(person, ammount);
 	if(errors == ''){
-		trip.addPerson();
+		let newPerson = {name:person, ammountPaid:ammount};
+		trip.people.push(newPerson);
+		trip.displayResults();
 	}else{
 		alert(errors);
 		return;
@@ -49,14 +54,28 @@ addPersonBtn.onclick = function(){
 
 function Trip(){
 	this.people = [];
-	this.addPerson = function(){
-        //add a person to person array
-        console.log('Person added');
-        this.displayResults();
-	}
+
 	this.displayResults = function(){
 		//calculate people ammount + money owed
-		console.log('Display results');
+		content = '';
+		
+		let total = this.displayTotal();
+        let numberPeople = this.people.length;
+		let average = total / numberPeople;
+
+		for(i=0; i<this.people.length; i++){
+			let owed = this.people[i].ammountPaid - average;
+			content += '<p>' + this.people[i].name + ' - PAID IN: <strong>' + this.people[i].ammountPaid;
+            content += '</strong>. ';
+            content += owed > 0 ? 'You are OWED ' + owed : 'You OWE ' + owed;
+			content += '</p>';
+		}
+
+		displayResults.innerHTML = '';
+		displayResults.innerHTML += '<h4>TOTAL SPENT: ' + total + '</h4>';
+		displayResults.innerHTML += '<h4>NUMBER OF PEOPLE: ' + numberPeople + '</h4>';
+		displayResults.innerHTML += '<h4>AVERAGE SPEND PP: ' + average + '</h4>';
+		displayResults.innerHTML += content;
 	}
 	this.errorCheck = function(person, ammount){
 		if(person){
@@ -64,7 +83,13 @@ function Trip(){
 		}else{
 			return 'Errors added here!';
 		}
-
+	}
+	this.displayTotal = function(){
+        let num = 0;
+        for(i=0; i<this.people.length; i++){
+			num += parseInt(this.people[i].ammountPaid);
+		}
+		return num;
 	}
 }
 
