@@ -1,4 +1,3 @@
-
 if(addPersonDiv){
 	let addPersonDiv = document.getElementById("addPersonDiv");
 	let displayResults = document.getElementById("displayResults");
@@ -38,9 +37,10 @@ if(addPersonDiv){
 
 			for(i=0; i<this.people.length; i++){
 				let owed = this.people[i].ammount - average;
-				content += '<p>' + this.people[i].name + ' - PAID IN: <strong>' + this.people[i].ammount;
+				content += '<p>' + this.people[i].name;
+				content += ' - PAID IN: <strong>' + this.people[i].ammount;
 	            content += '</strong>. ';
-	            content += owed > 0 ? '<span>You are OWED ' + owed + '</span>' : '<span style="color:red;">You OWE ' + owed + '</span>';
+	            content += owed >= 0 ? '<span>You are OWED ' + owed + '</span>' : '<span style="color:red;">You OWE ' + Math.abs(owed) + '</span>';
 				content += '</p>';
 			}
 
@@ -68,7 +68,6 @@ if(addPersonDiv){
 		this.checkStr = function(str){
 	        return /^[a-zA-Z\s]*$/.test(str);
 		}
-		
 	}
 
 	function PageSetUp(){
