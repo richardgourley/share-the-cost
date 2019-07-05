@@ -3,26 +3,9 @@ if(addPersonDiv){
 	let addPersonDiv = document.getElementById("addPersonDiv");
 	let displayResults = document.getElementById("displayResults");
 
-	let addPersonContent = '';
-	addPersonContent += '<div class="add-person-content-div">';
-	addPersonContent += '<table class="form-table">ADD A PERSON<br><br>';
-	addPersonContent += '<tbody>';
-	addPersonContent += '<tr>';
-	addPersonContent += '<th>Name:</th>';
-	addPersonContent += '<td>';
-	addPersonContent += '<input type="text" id="person" name="person">';
-	addPersonContent += '</td>';
-	addPersonContent += '</tr>';
-	addPersonContent += '<tr>';
-	addPersonContent += '<th>Ammount spent:</th>';
-	addPersonContent += '<td><input type="text" id="ammount" name="ammount"></td>';
-	addPersonContent += '</tr>';
-	addPersonContent += '</tbody>';
-	addPersonContent += '</table>';
-	addPersonContent += '<br><br><button type="submit" id="addPersonBtn">Add a person!</button>';
-	addPersonContent += '</div>';
-
-	addPersonDiv.innerHTML = addPersonContent;
+	//displays the addPerson form
+	let pageSetUp = new PageSetUp();
+	pageSetUp.setUpAddPersonDiv();
 
 	let addPersonBtn = document.getElementById("addPersonBtn");
 
@@ -62,9 +45,9 @@ if(addPersonDiv){
 			}
 
 			displayResults.innerHTML = '';
-			displayResults.innerHTML += '<h4>TOTAL SPENT: ' + total + '</h4>';
-			displayResults.innerHTML += '<h4>NUMBER OF PEOPLE: ' + numberPeople + '</h4>';
-			displayResults.innerHTML += '<h4>AVERAGE SPEND PP: ' + average + '</h4>';
+			displayResults.innerHTML += '<h3>TOTAL SPENT: ' + total + '</h3>';
+			displayResults.innerHTML += '<h3>NUMBER OF PEOPLE: ' + numberPeople + '</h3>';
+			displayResults.innerHTML += '<h3>AVERAGE SPEND PP: ' + average + '</h3>';
 			displayResults.innerHTML += content;
 		}
 		this.displayTotal = function(){
@@ -86,6 +69,31 @@ if(addPersonDiv){
 	        return /^[a-zA-Z\s]*$/.test(str);
 		}
 		
+	}
+
+	function PageSetUp(){
+		this.setUpAddPersonDiv = function(){
+			let content = '';
+			content += '<div class="add-person-content-div">';
+			content += '<table class="form-table">ADD A PERSON<br><br>';
+			content += '<tbody>';
+			content += '<tr>';
+			content += '<th>Name:</th>';
+			content += '<td>';
+			content += '<input type="text" id="person" name="person">';
+			content += '</td>';
+			content += '</tr>';
+			content += '<tr>';
+			content += '<th>Ammount spent:</th>';
+			content += '<td><input type="text" id="ammount" name="ammount"></td>';
+			content += '</tr>';
+			content += '</tbody>';
+			content += '</table>';
+			content += '<br><br><button type="submit" id="addPersonBtn">Add a person!</button>';
+			content += '</div>';
+
+			addPersonDiv.innerHTML = content;
+		}
 	}
 }
 
