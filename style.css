@@ -7,6 +7,14 @@ body{
   padding:15px;
 }
 
+.main-div{
+	padding:15px;
+}
+
+.add-person-div{
+	margin-bottom:10px;
+}
+
 @media screen and (min-width: 760px){
   .add-person-content-div{
     border:1px solid lightgrey;
