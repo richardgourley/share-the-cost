@@ -1,7 +1,7 @@
 # share-the-cost
-## This app allows a user to calculate who owes money and who is owed money at the end of an event or trip.
-## The user can enter the name of a person and how much they have paid for food, drinks, taxis, accommodation, travel etc.
-## The annoying part at the end of a trip away where people have spent more than others on things here and there inspired the app to make it easier for friends to sit down and quickly see where they stand.
+This app allows a user to calculate who owes money and who is owed money at the end of an event or trip.
+The user can enter the name of a person and how much they have paid for food, drinks, taxis, accommodation, travel etc.
+The annoying part at the end of a trip away where people have spent more than others on things here and there inspired the app to make it easier for friends to sit down and quickly see where they stand.
 ## The app calucaltes and displays:
 - The total spent on the event or trip.
 - The ammount each person spent out of their own budget.
